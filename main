@@ -13,7 +13,12 @@ def read_graph(file_name):
     return G
 
 def is_connected(G):
-    return nx.is_connected(G)
+    n = len(G.nodes())
+    m = len(G.edges())
+    if m > (n-1)*(n-2)/2:
+        return True
+    else:
+        return nx.is_connected(G)
 
 def visualize_graph(G):
     dot = graphviz.Graph()
@@ -23,12 +28,9 @@ def visualize_graph(G):
         dot.edge(str(edge[0]), str(edge[1]))
     dot.view()
 
-def main():
+if __name__ == "__main__":
     file_name = 'graph.txt'
     G = read_graph(file_name)
-    connected = is_connected(G)
-    print(f"The graph is connected: {connected}")
+    Q = is_connected(G)
+    print(f"The graph is connected: {Q}")
     visualize_graph(G)
-
-if __name__ == "__main__":
-    main()
